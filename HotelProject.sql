@@ -14,7 +14,6 @@ USE Hotel
 GO
 
 -- Create table for Rooms in Hotel
-
 CREATE TABLE dbo.GuestRooms
 (
 	RoomId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -25,7 +24,6 @@ CREATE TABLE dbo.GuestRooms
 
 
 -- Create table for Staff in Hotel
-
 CREATE TABLE dbo.Staff
 (
 	StaffId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -42,7 +40,6 @@ CREATE TABLE dbo.Staff
 )
 
 -- Create table for Mainteance needs
-
 CREATE TABLE dbo.Maintenance
 (
 	MaintenanceId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -55,7 +52,6 @@ CREATE TABLE dbo.Maintenance
 )
 
 -- Create table for Staff Assignments
-
 CREATE TABLE dbo.StaffAssignments
 (
 TaskId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -173,7 +169,6 @@ insert into dbo.GuestRooms (RoomNumber, BedsInRoom, BedSize) values (199, 2, 'Tw
 insert into dbo.GuestRooms (RoomNumber, BedsInRoom, BedSize) values (201, 1, 'Twin');
 
 -- Generate some fake employees
-
 insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Augusto', 'Lorain', 'Eltone', 'Gordon', 'Housekeeping', '6/15/2008', '1142', 0, 0, 0);
 insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Fan', 'Eli', 'Loton', 'Papageno', 'Front Desk', '5/18/2014', '841', 0, 1, 0);
 insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Viviene', 'Bernette', 'Krier', 'Keene', 'Maintainence', '7/13/2003', '1954', 1, 1, 0);
@@ -227,14 +222,11 @@ WHERE FirstName = @FirstName
 
 COMMIT;
 
-
 -- Write a DML statement that DELETEs a set of rows with a WHERE clause. The values used in the WHERE clause should be a variable
-
 DECLARE @LastName varchar(50) = 'Eltone'
 DELETE FROM dbo.Staff
 WHERE LastName = @LastName
 AND IsActive = 0
-
 
 -- Write a DML statement that DELETEs rows from a table that another table references. This script will have to also DELETE any records that reference these rows. Both of the DELETE statements need to be wrapped in a single TRANSACTION.
 BEGIN TRANSACTION
@@ -245,7 +237,6 @@ DELETE FROM dbo.Maintenance
 WHERE MaintenanceId = 4
 
 COMMIT;
-
 
 -- Write a  SELECT query that utilizes a JOIN
 SELECT Description
@@ -272,15 +263,25 @@ WHERE m.StaffId IS NULL
 
 -- Write a  SELECT query that utilizes a variable in the WHERE clause
 DECLARE @Department varchar(50) = '%Front Desk%'
-SELECT FirstName, IsSalary
+SELECT FirstName, LastName, IsSalary
 FROM dbo.Staff s
 WHERE Department LIKE @Department
 
 -- Write a  SELECT query that utilizes a ORDER BY clause
+SELECT PreferredName, LastName
+FROM dbo.Staff
+WHERE HourlyRatex100 > 1500
+ORDER BY DateHired DESC
 
 -- Write a  SELECT query that utilizes a GROUP BY clause along with an aggregate function
+SELECT MAX(HourlyRatex100), Department
+FROM dbo.Staff
+GROUP BY Department
 
 -- Write a SELECT query that utilizes a CALCULATED FIELD
+SELECT AVG(BedsInRoom), BedSize
+FROM dbo.GuestRooms
+GROUP BY BedSize
 
 -- Write a SELECT query that utilizes a SUBQUERY
 
