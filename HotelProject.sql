@@ -197,6 +197,10 @@ insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned]
 insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (2, 5, 96, '2010-12-23','Maintainence Need', 0, 0 );
 insert into dbo.StaffAssignments (StaffId, [DateAssigned], [TaskDescription], [IsRecurring], [RecurrenceInterval], [IsActive]) values (2, '2/26/2019', 'Consolidate receipts', 1, 'Weekly', 1);
 
+
+
+--START THE FUN STUFF:
+
 -- Write a SELECT query that uses a WHERE clause
 SELECT RoomNumber
 FROM dbo.GuestRooms
@@ -274,18 +278,30 @@ WHERE HourlyRatex100 > 1500
 ORDER BY DateHired DESC
 
 -- Write a  SELECT query that utilizes a GROUP BY clause along with an aggregate function
-SELECT MAX(HourlyRatex100), Department
+SELECT MAX(HourlyRatex100) AS 'Max Hourly Rate x100', Department
 FROM dbo.Staff
 GROUP BY Department
 
 -- Write a SELECT query that utilizes a CALCULATED FIELD
-SELECT AVG(BedsInRoom), BedSize
+SELECT AVG(BedsInRoom) AS 'AVG Beds', BedSize
 FROM dbo.GuestRooms
 GROUP BY BedSize
 
 -- Write a SELECT query that utilizes a SUBQUERY
+SELECT LastName, HourlyRatex100
+FROM dbo.Staff
+WHERE HourlyRatex100 > 
+	( SELECT AVG(HourlyRatex100)
+	FROM dbo.Staff)
 
 -- Write a SELECT query that utilizes a JOIN, at least 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC) AND A GROUP BY clause with an aggregate function
+SELECT AVG(r.BedsInRoom) as 'AVG Beds', r.BedSize
+FROM dbo.GuestRooms r
+JOIN dbo.StaffAssignments sa
+ON r.RoomId = sa.RoomId
+WHERE sa.IsRecurring = 0
+AND sa.IsActive = 1
+GROUP BY r.BedSize
 
 -- Write a SELECT query that utilizes a JOIN with 3 or more tables, at 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC), a GROUP BY clause with an aggregate function, and a HAVING clause
 
