@@ -1,6 +1,9 @@
 --Create Our Database
+USE MASTER
 
-USE Master
+GO
+ALTER DATABASE Hotel SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
 
 DROP DATABASE IF EXISTS Hotel
 
@@ -171,29 +174,30 @@ insert into dbo.GuestRooms (RoomNumber, BedsInRoom, BedSize) values (201, 1, 'Tw
 
 -- Generate some fake employees
 
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Augusto', 'Lorain', 'Eltone', 'Gordon', 'Housekeeping', '6/15/2008', '1142', 0, 0, 1);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Fan', 'Eli', 'Loton', 'Papageno', 'Front Desk', '5/18/2014', '841', 0, 0, 0);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Viviene', 'Bernette', 'Krier', 'Keene', 'Maintainence', '7/13/2003', '1954', 1, 0, 1);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Chloette', 'Bay', 'Braffington', 'Skyler', 'Administration', '7/15/2013', '1860', 0, 0, 1);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Tim', 'Grange', 'Graffham', 'Enos', 'Housekeeping', '5/21/2003', '1074', 0, 1, 1);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Augusto', 'Lorain', 'Eltone', 'Gordon', 'Housekeeping', '6/15/2008', '1142', 0, 0, 0);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Fan', 'Eli', 'Loton', 'Papageno', 'Front Desk', '5/18/2014', '841', 0, 1, 0);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Viviene', 'Bernette', 'Krier', 'Keene', 'Maintainence', '7/13/2003', '1954', 1, 1, 0);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Chloette', 'Bay', 'Braffington', 'Skyler', 'Administration', '7/15/2013', '1860', 0, 0, 0);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Tim', 'Grange', 'Graffham', 'Enos', 'Housekeeping', '5/21/2003', '1074', 0, 1, 0);
 insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Cynde', 'Chick', 'Di Maggio', 'Rory', 'Front Desk', '9/2/2001', '1238', 1, 0, 1);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Odelia', 'Karlik', 'Gudgen', 'Ervin', 'Maintainence', '8/8/2015', '2087', 0, 0, 1);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Franchot', 'Bernete', 'Plows', 'Nertie', 'Administration', '8/16/2009', '1318', 1, 0, 1);
-insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Selene', 'Tremayne', 'Ebbutt', 'Randi', 'Housekeeping', '6/9/2013', '1918', 0, 0, 1);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Odelia', 'Karlik', 'Gudgen', 'Ervin', 'Maintainence', '8/8/2015', '2087', 0, 1, 0);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Franchot', 'Bernete', 'Plows', 'Nertie', 'Administration', '8/16/2009', '1318', 1, 1, 1);
+insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Selene', 'Tremayne', 'Ebbutt', 'Randi', 'Housekeeping', '6/9/2013', '1918', 0, 1, 0);
 insert into dbo.Staff (FirstName, MiddleName, LastName, PreferredName, Department, DateHired, HourlyRatex100, IsSalary, IsActive, IsExempt) values ('Callida', 'Mariellen', 'Rennicks', 'Jareb', 'Maintainence', '8/15/2018', '1870', 0, 1, 0);
 
 
 -- Add some room maintenance needs
-insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('10/6/2016', '6/1/2020', 1, 'Toilet broken from wall', 7, 36);
+insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('10/6/2016', null, 0, 'Toilet broken from wall', 7, 36);
 insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, RoomId) values ('1/1/2011', null, 0, 'TV wont turn on', 95);
 insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('10/4/2016', '3/4/2020', 1, 'Shower pressure very low', 3, 55);
 insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('1/7/2017', '5/26/2020', 1, 'Carpet has been set on fire', 10, 27);
-insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('12/23/2010', '9/8/2020', 1, 'Squirrels in mini-fridge', 2, 96);
+insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('12/23/2010', null, 0, 'Squirrels in mini-fridge', 2, 96);
+insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('2/26/2019', null, 0, 'Ice machine on 2nd floor hallway needs filter changed', null, null);
 
 -- Add some employee tasks
 insert into dbo.StaffAssignments (StaffId, [DateAssigned], [TaskDescription], [IsRecurring], [RecurrenceInterval], [IsActive]) values (5, '5/10/2020' , 'Clean Rooms on First Floor', 1, 'Daily', 1 );
-insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (7, 1, 36, '2016-10-08', 'Maintainence Need', 0, 0 );
-insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (3, 3, 55, '2016-10-04', 'Maintainence Need', 0, 0  );
+insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (7, 1, 36, '2016-10-08', 'Maintainence Need', 0, 1 );
+insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (3, 3, 55, '2016-10-04', 'Maintainence Need', 0, 1  );
 insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (10, 4, 27, '2017-01-07', 'Maintainence Need', 0, 0 );
 insert into dbo.StaffAssignments (StaffId, MaintenanceId, RoomId, [DateAssigned], [TaskDescription], [IsRecurring], [IsActive]) values (2, 5, 96, '2010-12-23','Maintainence Need', 0, 0 );
 insert into dbo.StaffAssignments (StaffId, [DateAssigned], [TaskDescription], [IsRecurring], [RecurrenceInterval], [IsActive]) values (2, '2/26/2019', 'Consolidate receipts', 1, 'Weekly', 1);
@@ -215,18 +219,62 @@ FROM dbo.Maintenance
 WHERE DateCompleted IS NOT NULL
 
 -- Write a DML statement that UPDATEs a set of rows with a WHERE clause. The values used in the WHERE clause should be a variable
+BEGIN TRANSACTION 
+DECLARE @FirstName varchar(50) = 'Selene';
+UPDATE dbo.Staff
+SET IsActive = 0
+WHERE FirstName = @FirstName
+
+COMMIT;
+
 
 -- Write a DML statement that DELETEs a set of rows with a WHERE clause. The values used in the WHERE clause should be a variable
 
+DECLARE @LastName varchar(50) = 'Eltone'
+DELETE FROM dbo.Staff
+WHERE LastName = @LastName
+AND IsActive = 0
+
+
 -- Write a DML statement that DELETEs rows from a table that another table references. This script will have to also DELETE any records that reference these rows. Both of the DELETE statements need to be wrapped in a single TRANSACTION.
+BEGIN TRANSACTION
+DELETE FROM dbo.StaffAssignments
+WHERE TaskId = 4
+
+DELETE FROM dbo.Maintenance
+WHERE MaintenanceId = 4
+
+COMMIT;
+
 
 -- Write a  SELECT query that utilizes a JOIN
+SELECT Description
+FROM dbo.Maintenance m
+JOIN dbo.StaffAssignments sa
+ON sa.MaintenanceId = m.MaintenanceId
+WHERE sa.IsActive = 1
 
 -- Write a  SELECT query that utilizes a JOIN with 3 or more tables
+SELECT s.LastName, r.RoomNumber
+FROM dbo.Staff s
+JOIN dbo.Maintenance M
+ON s.StaffId = m.StaffId
+JOIN dbo.GuestRooms r
+ON r.RoomId = m.RoomId
+WHERE m.DateCompleted > '2020-02-01'
 
 -- Write a  SELECT query that utilizes a LEFT JOIN
+SELECT r.BedSize, m.DateReported
+FROM dbo.Maintenance m
+LEFT JOIN dbo.GuestRooms r
+ON r.RoomId = m.RoomId
+WHERE m.StaffId IS NULL
 
 -- Write a  SELECT query that utilizes a variable in the WHERE clause
+DECLARE @Department varchar(50) = '%Front Desk%'
+SELECT FirstName, IsSalary
+FROM dbo.Staff s
+WHERE Department LIKE @Department
 
 -- Write a  SELECT query that utilizes a ORDER BY clause
 
