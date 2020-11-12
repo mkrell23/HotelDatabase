@@ -188,6 +188,7 @@ insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Descriptio
 insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('1/7/2017', '5/26/2020', 1, 'Carpet has been set on fire', 10, 27);
 insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('12/23/2010', null, 0, 'Squirrels in mini-fridge', 2, 96);
 insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('2/26/2019', null, 0, 'Ice machine on 2nd floor hallway needs filter changed', null, null);
+insert into dbo.Maintenance (DateReported, DateCompleted, IsComplete, Description, StaffId, RoomId) values ('1/08/2017', null, 0, 'Odd smell in room', 6, 95);
 
 -- Add some employee tasks
 insert into dbo.StaffAssignments (StaffId, [DateAssigned], [TaskDescription], [IsRecurring], [RecurrenceInterval], [IsActive]) values (5, '5/10/2020' , 'Clean Rooms on First Floor', 1, 'Daily', 1 );
@@ -235,7 +236,7 @@ AND IsActive = 0
 -- Write a DML statement that DELETEs rows from a table that another table references. This script will have to also DELETE any records that reference these rows. Both of the DELETE statements need to be wrapped in a single TRANSACTION.
 BEGIN TRANSACTION
 DELETE FROM dbo.StaffAssignments
-WHERE TaskId = 4
+WHERE MaintenanceId = 4
 
 DELETE FROM dbo.Maintenance
 WHERE MaintenanceId = 4
@@ -304,6 +305,15 @@ AND sa.IsActive = 1
 GROUP BY r.BedSize
 
 -- Write a SELECT query that utilizes a JOIN with 3 or more tables, at 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC), a GROUP BY clause with an aggregate function, and a HAVING clause
+SELECT AVG(r.BedsInRoom) as 'Max King Beds Down', MAX(s.HourlyRatex100) as 'Max Rate x100 for Staff Assigned'
+FROM dbo.GuestRooms r
+JOIN dbo.Maintenance m
+ON r.RoomId = m.RoomId
+JOIN dbo.Staff s
+ON m.StaffId = s.StaffId
+WHERE m.DateReported < '2019-2-01'
+GROUP BY r.BedSize
+HAVING r.BedSize = 'King'
 
 -- Design a NONCLUSTERED INDEX with ONE KEY COLUMN that improves the performance of one of the above queries
 
