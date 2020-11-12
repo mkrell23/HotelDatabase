@@ -1,12 +1,6 @@
 --Create Our Database
 USE MASTER
 
-GO
-ALTER DATABASE Hotel SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-GO
-
-DROP DATABASE IF EXISTS Hotel
-
 CREATE DATABASE Hotel
 GO
 
@@ -203,9 +197,9 @@ insert into dbo.StaffAssignments (StaffId, [DateAssigned], [TaskDescription], [I
 --START THE FUN STUFF:
 
 -- Write a SELECT query that uses a WHERE clause
-SELECT RoomNumber
-FROM dbo.GuestRooms
-WHERE BedSize = 'King'
+SELECT DateReported
+FROM dbo.Maintenance
+WHERE DateReported BETWEEN '2016-2-1' AND '2017-8-1'
 
 -- Write a  SELECT query that uses an OR and an AND operator
 SELECT RoomNumber
@@ -257,7 +251,7 @@ JOIN dbo.Maintenance M
 ON s.StaffId = m.StaffId
 JOIN dbo.GuestRooms r
 ON r.RoomId = m.RoomId
-WHERE m.DateCompleted > '2020-02-01'
+WHERE m.DateReported < '2017-02-01'
 
 -- Write a  SELECT query that utilizes a LEFT JOIN
 SELECT r.BedSize, m.DateReported
@@ -273,10 +267,10 @@ FROM dbo.Staff s
 WHERE Department LIKE @Department
 
 -- Write a  SELECT query that utilizes a ORDER BY clause
-SELECT PreferredName, LastName
+SELECT FirstName, LastName
 FROM dbo.Staff
 WHERE HourlyRatex100 > 1500
-ORDER BY DateHired DESC
+ORDER BY LastName DESC
 
 -- Write a  SELECT query that utilizes a GROUP BY clause along with an aggregate function
 SELECT MAX(HourlyRatex100) AS 'Max Hourly Rate x100', Department
@@ -316,7 +310,16 @@ GROUP BY r.BedSize
 HAVING r.BedSize = 'King'
 
 -- Design a NONCLUSTERED INDEX with ONE KEY COLUMN that improves the performance of one of the above queries
+CREATE NONCLUSTERED INDEX IX_Maintenance_DateReported ON dbo.Maintenance
+( DateReported )
 
 -- Design a NONCLUSTERED INDEX with TWO KEY COLUMNS that improves the performance of one of the above queries
+CREATE NONCLUSTERED INDEX IX_Staff_LastName_FirstName ON dbo.Staff
+( LastName, FirstName )
 
 -- Design a NONCLUSTERED INDEX with AT LEAST ONE KEY COLUMN and AT LEAST ONE INCLUDED COLUMN that improves the performance of one of the above queries
+--rooms k-roomnumber inc-bedsize, incl-bedsinroom
+CREATE NONCLUSTERED INDEX IX_GuestRooms_RoomNumber ON dbo.GuestRooms
+( RoomNumber )
+INCLUDE
+( Bedsize, BedsInRoom)
