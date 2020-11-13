@@ -204,8 +204,9 @@ WHERE DateReported BETWEEN '2016-2-1' AND '2017-8-1'
 -- Write a  SELECT query that uses an OR and an AND operator
 SELECT RoomNumber
 FROM dbo.GuestRooms
-WHERE BedsInRoom = 2
-	AND BedSize = 'King'
+WHERE BedsInRoom = 1
+	AND (BedSize = 'Queen'
+	OR Bedsize = 'Twin')
 
 -- Write a  SELECT query that filters NULL rows using IS NOT NULL
 SELECT Description
@@ -213,13 +214,10 @@ FROM dbo.Maintenance
 WHERE DateCompleted IS NOT NULL
 
 -- Write a DML statement that UPDATEs a set of rows with a WHERE clause. The values used in the WHERE clause should be a variable
-BEGIN TRANSACTION 
 DECLARE @FirstName varchar(50) = 'Selene';
 UPDATE dbo.Staff
 SET IsActive = 0
 WHERE FirstName = @FirstName
-
-COMMIT;
 
 -- Write a DML statement that DELETEs a set of rows with a WHERE clause. The values used in the WHERE clause should be a variable
 DECLARE @LastName varchar(50) = 'Eltone'
@@ -261,10 +259,10 @@ ON r.RoomId = m.RoomId
 WHERE m.StaffId IS NULL
 
 -- Write a  SELECT query that utilizes a variable in the WHERE clause
-DECLARE @Department varchar(50) = '%Front Desk%'
+DECLARE @Department varchar(50) = 'Front Desk'
 SELECT FirstName, LastName, IsSalary
 FROM dbo.Staff s
-WHERE Department LIKE @Department
+WHERE Department = @Department
 
 -- Write a  SELECT query that utilizes a ORDER BY clause
 SELECT FirstName, LastName
