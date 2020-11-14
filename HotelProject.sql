@@ -196,6 +196,21 @@ insert into dbo.StaffAssignments (StaffId, [DateAssigned], [TaskDescription], [I
 
 --START THE FUN STUFF:
 
+-- Design a NONCLUSTERED INDEX with ONE KEY COLUMN that improves the performance of one of the above (now below) queries
+CREATE NONCLUSTERED INDEX IX_Maintenance_DateReported ON dbo.Maintenance
+( DateReported )
+
+-- Design a NONCLUSTERED INDEX with TWO KEY COLUMNS that improves the performance of one of the above (now below) queries
+CREATE NONCLUSTERED INDEX IX_Staff_LastName_FirstName ON dbo.Staff
+( LastName, FirstName )
+
+-- Design a NONCLUSTERED INDEX with AT LEAST ONE KEY COLUMN and AT LEAST ONE INCLUDED COLUMN that improves the performance of one of the above (now below) queries
+CREATE NONCLUSTERED INDEX IX_GuestRooms_BedSize_BedNumber ON dbo.GuestRooms
+( BedSize, BedsInRoom )
+INCLUDE
+( RoomNumber)
+
+
 -- Write a SELECT query that uses a WHERE clause
 SELECT DateReported
 FROM dbo.Maintenance
@@ -306,17 +321,3 @@ ON m.StaffId = s.StaffId
 WHERE m.DateReported < '2019-2-01'
 GROUP BY r.BedSize
 HAVING r.BedSize = 'King'
-
--- Design a NONCLUSTERED INDEX with ONE KEY COLUMN that improves the performance of one of the above queries
-CREATE NONCLUSTERED INDEX IX_Maintenance_DateReported ON dbo.Maintenance
-( DateReported )
-
--- Design a NONCLUSTERED INDEX with TWO KEY COLUMNS that improves the performance of one of the above queries
-CREATE NONCLUSTERED INDEX IX_Staff_LastName_FirstName ON dbo.Staff
-( LastName, FirstName )
-
--- Design a NONCLUSTERED INDEX with AT LEAST ONE KEY COLUMN and AT LEAST ONE INCLUDED COLUMN that improves the performance of one of the above queries
-CREATE NONCLUSTERED INDEX IX_GuestRooms_BedSize_BedNumber ON dbo.GuestRooms
-( BedSize, BedsInRoom )
-INCLUDE
-( RoomNumber)
