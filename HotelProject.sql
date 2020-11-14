@@ -316,7 +316,7 @@ CREATE NONCLUSTERED INDEX IX_Staff_LastName_FirstName ON dbo.Staff
 ( LastName, FirstName )
 
 -- Design a NONCLUSTERED INDEX with AT LEAST ONE KEY COLUMN and AT LEAST ONE INCLUDED COLUMN that improves the performance of one of the above queries
-CREATE NONCLUSTERED INDEX IX_GuestRooms_RoomNumber ON dbo.GuestRooms
-( RoomNumber )
+CREATE NONCLUSTERED INDEX IX_GuestRooms_BedSize_BedNumber ON dbo.GuestRooms
+( BedSize, BedsInRoom )
 INCLUDE
-( Bedsize, BedsInRoom)
+( RoomNumber)
