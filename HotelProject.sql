@@ -297,7 +297,7 @@ AND sa.IsActive = 1
 GROUP BY r.BedSize
 
 -- Write a SELECT query that utilizes a JOIN with 3 or more tables, at 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC), a GROUP BY clause with an aggregate function, and a HAVING clause
-SELECT AVG(r.BedsInRoom) as 'Max King Beds Down', MAX(s.HourlyRatex100) as 'Max Rate x100 for Staff Assigned'
+SELECT AVG(r.BedsInRoom) as 'Avg King Beds Down', MAX(s.HourlyRatex100) as 'Max Rate x100 for Staff Assigned'
 FROM dbo.GuestRooms r
 JOIN dbo.Maintenance m
 ON r.RoomId = m.RoomId
