@@ -291,9 +291,15 @@ FROM dbo.Staff
 GROUP BY Department
 
 -- Write a SELECT query that utilizes a CALCULATED FIELD
-SELECT AVG(BedsInRoom) AS 'AVG Beds', BedSize
-FROM dbo.GuestRooms
-GROUP BY BedSize
+--SELECT AVG(BedsInRoom) AS 'AVG Beds', BedSize
+--FROM dbo.GuestRooms
+--GROUP BY BedSize
+
+--AVG isn't a calculation per Steve:
+SELECT FirstName + ' ' + '''' + PreferredName + '''' + ' ' +  MiddleName + ' ' + LastName as 'Full Name', CAST(HourlyRatex100 as decimal) * 4/10 as 'Weekly Rate'
+FROM dbo.Staff
+WHERE IsActive = 1
+
 
 -- Write a SELECT query that utilizes a SUBQUERY
 SELECT LastName, HourlyRatex100
